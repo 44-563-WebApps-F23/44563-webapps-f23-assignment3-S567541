@@ -69,20 +69,29 @@
 <hr>
 <pre>
    
-  <object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"
-       codebase="http://www.apple.com/qtactivex/qtplugin.cab"
-       width="200" height="16">
- <param name="src" value="movie.mov" />
- <param name="autoplay" value="true" />
- <param name="pluginspage" value="http://www.apple.com/quicktime/download/" />
- <param name="controller" value="true" />
- <!--[if !IE]> <-->
-   <object data="movie.mov" width="200" height="16" type="video/quicktime">
-     <param name="pluginurl" value="http://www.apple.com/quicktime/download/" />
-     <param name="controller" value="true" />
-   </object>
- <!-- <![endif]-->
-</object>
+  <script lang="ts">
+    import { fly } from 'svelte/transition';
+
+    let players: string[] = ['Juan', 'John', 'Luis'];
+</script>
+
+<div class="overflow-hidden">
+    {#each players as player, playerIndex}
+        {#key playerIndex}
+            <div class="flex" out:fly={{ duration: 2000, x: '100vw', opacity: 100 }}>
+                <span>{player}</span>
+                <button
+                    on:click={() => {
+                        players.splice(playerIndex, 1);
+                        players = players;
+                    }}
+                >
+                    Remove
+                </button>
+            </div>
+        {/key}
+    {/each}
+</div>
 
 </pre>
 
